@@ -49,5 +49,5 @@ riscv = "0.10"
 
 [dev-dependencies]
 rand = "0.8"
-axhal = { path = "../axhal", features = ["fp_simd"] }
+axhal = { git = "https://github.com/Arceos-crates/axhal.git", features = ["fp_simd"] }
 axtask = { path = ".", features = ["test"] }

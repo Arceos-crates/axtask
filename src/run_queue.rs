@@ -131,7 +131,7 @@ impl AxRunQueue {
         F: FnOnce(AxTaskRef),
     {
         let curr = crate::current();
-        debug!("task block: {}", curr.id_name());
+        log::debug!("task block: {}", curr.id_name());
         assert!(curr.is_running());
         assert!(!curr.is_idle());
 
@@ -145,7 +145,7 @@ impl AxRunQueue {
     }
 
     pub fn unblock_task(&mut self, task: AxTaskRef, resched: bool) {
-        debug!("task unblock: {}", task.id_name());
+        log::debug!("task unblock: {}", task.id_name());
         if task.is_blocked() {
             task.set_state(TaskState::Ready);
             self.scheduler.add_task(task); // TODO: priority
@@ -159,7 +159,7 @@ impl AxRunQueue {
     #[cfg(feature = "irq")]
     pub fn sleep_until(&mut self, deadline: axhal::time::TimeValue) {
         let curr = crate::current();
-        debug!("task sleep: {}, deadline={:?}", curr.id_name(), deadline);
+        log::debug!("task sleep: {}, deadline={:?}", curr.id_name(), deadline);
         assert!(curr.is_running());
         assert!(!curr.is_idle());
 

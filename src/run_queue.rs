@@ -225,7 +225,7 @@ impl AxRunQueue {
     }
 
     fn switch_to(&mut self, prev_task: CurrentTask, next_task: AxTaskRef) {
-        trace!(
+        log::trace!(
             "context switch: {} -> {}",
             prev_task.id_name(),
             next_task.id_name()

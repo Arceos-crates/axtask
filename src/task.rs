@@ -467,7 +467,7 @@ impl TaskInner {
         F: FnOnce() + Send + 'static,
     {
         let mut t = Self::new_common(TaskId::new(), name);
-        debug!("new task: {}", t.id_name());
+        log::debug!("new task: {}", t.id_name());
         let kstack = TaskStack::alloc(align_up_4k(stack_size));
 
         #[cfg(feature = "tls")]
@@ -638,7 +638,7 @@ impl fmt::Debug for TaskInner {
 
 impl Drop for TaskInner {
     fn drop(&mut self) {
-        debug!("task drop: {}", self.id_name());
+        log::debug!("task drop: {}", self.id_name());
     }
 }
 

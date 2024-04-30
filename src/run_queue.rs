@@ -43,7 +43,7 @@ impl AxRunQueue {
     }
 
     pub fn add_task(&mut self, task: AxTaskRef) {
-        debug!("task spawn: {}", task.id_name());
+        log::debug!("task spawn: {}", task.id_name());
         assert!(task.is_ready());
         self.scheduler.add_task(task);
     }
@@ -59,7 +59,7 @@ impl AxRunQueue {
 
     pub fn yield_current(&mut self) {
         let curr = crate::current();
-        debug!("task yield: {}", curr.id_name());
+        log::debug!("task yield: {}", curr.id_name());
         assert!(curr.is_running());
         self.resched(false);
     }
@@ -81,7 +81,7 @@ impl AxRunQueue {
         //  locking the run queue.
         let can_preempt = curr.can_preempt(1);
 
-        debug!(
+        log::debug!(
             "current task is to be preempted: {}, allow={}",
             curr.id_name(),
             can_preempt
@@ -95,7 +95,7 @@ impl AxRunQueue {
 
     pub fn exit_current(&mut self, exit_code: i32) -> ! {
         let curr = crate::current();
-        debug!("task exit: {}, exit_code={}", curr.id_name(), exit_code);
+        log::debug!("task exit: {}, exit_code={}", curr.id_name(), exit_code);
         assert!(curr.is_running());
         assert!(!curr.is_idle());
         if curr.is_init() {
@@ -114,7 +114,7 @@ impl AxRunQueue {
     #[cfg(feature = "monolithic")]
     /// 仅用于exec与exit时清除其他后台线程
     pub fn remove_task(&mut self, task: &AxTaskRef) {
-        debug!("task remove: {}", task.id_name());
+        log::debug!("task remove: {}", task.id_name());
         // 当前任务不予清除
         // assert!(!task.is_running());
         assert!(!task.is_running());

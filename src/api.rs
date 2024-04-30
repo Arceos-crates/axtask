@@ -65,13 +65,13 @@ pub fn current() -> CurrentTask {
 
 /// Initializes the task scheduler (for the primary CPU).
 pub fn init_scheduler() {
-    info!("Initialize scheduling...");
+    log::info!("Initialize scheduling...");
 
     crate::run_queue::init();
     #[cfg(feature = "irq")]
     crate::timers::init();
 
-    info!("  use {} scheduler.", Scheduler::scheduler_name());
+    log::info!("  use {} scheduler.", Scheduler::scheduler_name());
 }
 
 /// Initializes the task scheduler for secondary CPUs.
@@ -171,7 +171,7 @@ pub fn exit(exit_code: i32) -> ! {
 pub fn run_idle() -> ! {
     loop {
         yield_now();
-        debug!("idle task: waiting for IRQs...");
+        log::debug!("idle task: waiting for IRQs...");
         #[cfg(feature = "irq")]
         axhal::arch::wait_for_irqs();
     }

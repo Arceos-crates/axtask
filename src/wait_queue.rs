@@ -100,7 +100,7 @@ impl WaitQueue {
     pub fn wait_timeout(&self, dur: core::time::Duration) -> bool {
         let curr = crate::current();
         let deadline = axhal::time::current_time() + dur;
-        debug!(
+        log::debug!(
             "task wait_timeout: {} deadline={:?}",
             curr.id_name(),
             deadline
@@ -128,7 +128,7 @@ impl WaitQueue {
     {
         let curr = crate::current();
         let deadline = axhal::time::current_time() + dur;
-        debug!(
+        log::debug!(
             "task wait_timeout: {}, deadline={:?}",
             curr.id_name(),
             deadline
